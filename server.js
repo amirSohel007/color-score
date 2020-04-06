@@ -26,6 +26,11 @@ app.use(function (req, res, next) {
 });
 
 
+app.get("/", (req, res) => {
+  
+  res.send("hello world");
+  
+});
 //get all colors
 app.get("/colors/all", (req, res) => {
   databse.find({}, (err, data) => {
