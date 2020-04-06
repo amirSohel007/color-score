@@ -5,6 +5,12 @@ const databse = new Datastore("databse.db");
 databse.loadDatabase();
 //app.listen(3000, () => console.log("Server is running up !"));
 app.listen(process.env.PORT || 3000, listen);
+function listen() {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('col-draw app listening at http://' + host + ':' + port);
+}
+
 // Add headers
 app.use(function (req, res, next) {
 
