@@ -5,7 +5,7 @@ const databse = new Datastore("databse.db");
 databse.loadDatabase();
 //app.listen(3000, () => console.log("Server is running up !"));
 app.listen(process.env.PORT || 3000, (req, res)=> {
-  console.log('test')
+ //
 });
 
 // Add headers
@@ -29,11 +29,6 @@ app.use(function (req, res, next) {
 });
 
 
-app.get("/", (req, res) => {
-  
-  res.send("hello world");
-  
-});
 //get all colors
 app.get("/colors/all", (req, res) => {
   databse.find({}, (err, data) => {
