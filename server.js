@@ -3,8 +3,8 @@ const app = express();
 const Datastore = require("nedb");
 const databse = new Datastore("databse.db");
 databse.loadDatabase();
-app.listen(3000, () => console.log("Server is running up !"));
-
+//app.listen(3000, () => console.log("Server is running up !"));
+app.listen(process.env.PORT || 3000, listen);
 // Add headers
 app.use(function (req, res, next) {
 
