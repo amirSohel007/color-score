@@ -1,11 +1,16 @@
 const express = require("express");
+const bodyParser = require('body-parser')
 const app = express();
+
+// parse application/json
+app.use(bodyParser.json())
 const Datastore = require("nedb");
 const databse = new Datastore("databse.db");
 databse.loadDatabase();
-//app.listen(3000, () => console.log("Server is running up !"));
-app.listen(process.env.PORT || 3000, (req, res)=> {
- //
+
+// app.listen(8000, () => console.log("Server is running up !"));
+app.listen(process.env.PORT || 3000, ()=> {
+
 });
 
 // Add headers
@@ -28,41 +33,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-//get all colors
-app.get("/colors/all", (req, res) => {
-  databse.find({}, (err, data) => {
-    if (!err) {
-      res.send(data);
+app.post('/register', (req,res) => {
+  databse.insert(req.body, (err,data) => {
+    if(!err){
+      res.status(200);
+      res.send({
+        message:"Thank you for creating account !"
+      })
     }
-  });
-});
-
-//create colros with filter
-app.get("/colors/:name", (req, res) => {
-  const data = req.params;
-  databse.find({ color: data.name }, (err, data) => {
-    res.send(data);
-  });
-});
-
-//add color route
-app.get("/colors/add/:color/:score?", (req, res) => {
-  const data = req.params;
-  if (!data.score) {
-    res.send({
-      message: "score is missing !",
-    });
-  } else {
-    databse.insert(data, (err, data) => {
-      if (!err) {
-        res.send({
-          message: "Thanks for add new color",
-          color: data.color,
-          score: data.score,
-        });
-        res.end();
-      }
-    });
-  }
-});
+    else {
+      res.status(500);
+      res.send({
+        message:"Server error !"
+      })
+    }
+  })
+})
