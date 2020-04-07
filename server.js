@@ -7,10 +7,11 @@ app.use(bodyParser.json())
 const Datastore = require("nedb");
 const databse = new Datastore("databse.db");
 databse.loadDatabase();
+app.use(express.static('public'))
 
 // app.listen(8000, () => console.log("Server is running up !"));
-app.listen(process.env.PORT || 3000, ()=> {
-
+app.listen(process.env.PORT || 8000, (req, res)=> {
+ 
 });
 
 // Add headers
@@ -33,19 +34,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.post('/register', (req,res) => {
-  databse.insert(req.body, (err,data) => {
-    if(!err){
-      res.status(200);
+app.post("/register", (req, res) => {
+  databse.insert(req.body, (err, data) => {
+    if(data){
       res.send({
-        message:"Thank you for creating account !"
+        status: 200,
+        message: "User has been successfully registerd"
       })
     }
     else {
-      res.status(500);
       res.send({
-        message:"Server error !"
+        status: 500,
+        message: "Internal server error"
       })
     }
-  })
-})
+  });
+});
