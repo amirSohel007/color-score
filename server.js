@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const bcrypt = require("bcrypt");
-const routes = require('./Router/router');
 // parse application/json
 app.use(bodyParser.json());
 const Datastore = require("nedb");
@@ -10,8 +9,9 @@ const databse = new Datastore("databse.db");
 databse.loadDatabase();
 app.use(express.static("public"));
 
-// app.listen(8000, () => console.log("Server is running up !"));
-app.listen(process.env.PORT || 8000, (req, res) => {});
+// app.listen(3000, () => console.log("Server is running up !"));
+app.listen(process.env.PORT || 4000, (req, res) => {
+});
 
 // Add headers
 app.use(function (req, res, next) {
