@@ -36,6 +36,7 @@ app.use(function (req, res, next) {
 
 app.post("/register", (req, res) => {
   databse.insert(req.body, (err, data) => {
+    console.log(data)
     if(data){
       res.send({
         status: 200,
